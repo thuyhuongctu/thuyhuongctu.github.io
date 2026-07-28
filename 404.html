@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>BizOn Bật Nghiệp — đang chuyển hướng…</title>
+<meta name="robots" content="noindex">
+<script>
+// Gõ sai hoa/thường kiểu /bizon/, /Bizon/ → đưa về đúng /BizOn/ kèm phần đường dẫn còn lại
+var p = location.pathname;
+var m = p.match(/^\/bizon(\/.*)?$/i);
+location.replace(m ? '/BizOn' + (m[1] || '/') : '/BizOn/');
+</script>
+</head>
+<body style="font-family:sans-serif;text-align:center;padding-top:20vh;color:#033337">
+<p>Đang chuyển đến <a href="/BizOn/">BizOn Bật Nghiệp</a>…</p>
+</body>
+</html>
