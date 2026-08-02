@@ -5,13 +5,19 @@ on:
     paths:
       - '.nojekyll'
       - '.well-known/assetlinks.json'
+      - 'scripts/update-bizon-assetlinks.mjs'
+      - 'scripts/validate-bizon-assetlinks.mjs'
       - '.github/workflows/verify-assetlinks.yml'
+      - '.github/workflows/publish-bizon-play-assetlinks.yml'
   push:
     branches: ['main']
     paths:
       - '.nojekyll'
       - '.well-known/assetlinks.json'
+      - 'scripts/update-bizon-assetlinks.mjs'
+      - 'scripts/validate-bizon-assetlinks.mjs'
       - '.github/workflows/verify-assetlinks.yml'
+      - '.github/workflows/publish-bizon-play-assetlinks.yml'
   workflow_dispatch:
 
 permissions:
@@ -20,42 +26,45 @@ permissions:
 jobs:
   contract:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.13'
+          node-version: '24'
+
       - name: Validate repository contract
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          expected = '90:1F:4E:09:2B:15:A9:3A:77:F7:A0:A0:AD:9E:5A:1D:5C:06:3B:ED:3A:D7:69:1A:05:13:AE:9D:8B:80:AD:06'
-          assert Path('.nojekyll').exists(), '.nojekyll is required to publish .well-known'
-          data = json.loads(Path('.well-known/assetlinks.json').read_text(encoding='utf-8'))
-          assert len(data) == 1
-          item = data[0]
-          assert item['relation'] == ['delegate_permission/common.handle_all_urls']
-          assert item['target']['namespace'] == 'android_app'
-          assert item['target']['package_name'] == 'vn.bizon.simulation'
-          assert item['target']['sha256_cert_fingerprints'] == [expected]
-          print('Repository assetlinks contract passed')
-          PY
+        run: node scripts/validate-bizon-assetlinks.mjs
+
       - name: Verify deployed root endpoint
+        if: github.event_name != 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
           URL='https://thuyhuongctu.github.io/.well-known/assetlinks.json'
-          curl --fail --silent --show-error --location \
-            --retry 24 --retry-delay 10 --retry-all-errors \
-            -D /tmp/headers.txt "$URL" -o /tmp/assetlinks.json
-          grep -qE '^HTTP/[^ ]+ 200' /tmp/headers.txt
-          DEPLOYED_URL="$URL" python - <<'PY'
-          import json, os
-          from pathlib import Path
-          expected = '90:1F:4E:09:2B:15:A9:3A:77:F7:A0:A0:AD:9E:5A:1D:5C:06:3B:ED:3A:D7:69:1A:05:13:AE:9D:8B:80:AD:06'
-          data = json.loads(Path('/tmp/assetlinks.json').read_text(encoding='utf-8'))
-          assert data[0]['target']['package_name'] == 'vn.bizon.simulation'
-          assert data[0]['target']['sha256_cert_fingerprints'] == [expected]
-          print('Deployed root Digital Asset Links verified:', os.environ['DEPLOYED_URL'])
-          PY
+          for attempt in {1..24}; do
+            STATUS=$(curl --silent --show-error \
+              --output /tmp/assetlinks.json \
+              --dump-header /tmp/headers.txt \
+              --write-out '%{http_code}' \
+              "$URL" || true)
+            if [ "$STATUS" = '200' ]; then break; fi
+            sleep 10
+          done
+          test "$STATUS" = '200'
+          grep -qiE '^content-type:[[:space:]]*application/json' /tmp/headers.txt
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const expected = JSON.parse(fs.readFileSync('.well-known/assetlinks.json', 'utf8'));
+          const deployed = JSON.parse(fs.readFileSync('/tmp/assetlinks.json', 'utf8'));
+          const expectedFingerprints = [...expected[0].target.sha256_cert_fingerprints].sort();
+          const deployedFingerprints = [...deployed[0].target.sha256_cert_fingerprints].sort();
+          if (deployed[0].target.package_name !== 'vn.bizon.simulation') throw new Error('Unexpected deployed package name.');
+          if (JSON.stringify(deployedFingerprints) !== JSON.stringify(expectedFingerprints)) {
+            throw new Error(`Deployed fingerprints do not match repository. Expected ${expectedFingerprints.length}, received ${deployedFingerprints.length}.`);
+          }
+          console.log('Deployed root Digital Asset Links verified.');
+          NODE
