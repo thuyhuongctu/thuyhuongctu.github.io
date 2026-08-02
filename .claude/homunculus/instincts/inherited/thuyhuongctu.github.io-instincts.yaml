@@ -1,0 +1,338 @@
+# Instincts generated from https://github.com/thuyhuongctu/thuyhuongctu.github.io
+# Generated: 2026-08-02T05:26:33.137Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: thuyhuongctu.github.io-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: ci, feat, test, docs
+
+## Evidence
+
+- 5 commits analyzed
+- Detected conventional commit pattern
+- Examples: feat(assetlinks): add controlled Play fingerprint updater, test(assetlinks): add root association contract
+
+---
+id: thuyhuongctu.github.io-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Commit Length
+
+## Action
+
+Write moderate-length commit messages (~55 characters)
+
+## Evidence
+
+- Average commit message length: 55 chars
+- Based on 5 commits
+
+---
+id: thuyhuongctu.github.io-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Naming Files
+
+## Action
+
+Use kebab-case naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: kebab-case
+
+---
+id: thuyhuongctu.github.io-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: thuyhuongctu.github.io-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: thuyhuongctu.github.io-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: thuyhuongctu.github.io-instinct-file-naming
+trigger: "When creating a new file"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct File Naming
+
+## Action
+
+Name the file using kebab-case
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.files
+
+---
+id: thuyhuongctu.github.io-instinct-function-naming
+trigger: "When defining a new function"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Function Naming
+
+## Action
+
+Name the function using camelCase
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.functions
+
+---
+id: thuyhuongctu.github.io-instinct-class-naming
+trigger: "When defining a new class"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Class Naming
+
+## Action
+
+Name the class using PascalCase
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.classes
+
+---
+id: thuyhuongctu.github.io-instinct-constant-naming
+trigger: "When declaring a constant"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Constant Naming
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.constants
+
+---
+id: thuyhuongctu.github.io-instinct-import-style
+trigger: "When importing modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Import Style
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in codeStyle.importStyle
+
+---
+id: thuyhuongctu.github.io-instinct-export-style
+trigger: "When exporting from a module"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Export Style
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in codeStyle.exportStyle
+
+---
+id: thuyhuongctu.github.io-instinct-test-location
+trigger: "When adding or updating tests"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Test Location
+
+## Action
+
+Place test files in a separate location from source files
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation
+
+---
+id: thuyhuongctu.github.io-instinct-commit-format
+trigger: "When writing a commit message"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Commit Format
+
+## Action
+
+Use Conventional Commits format with type(scope): description, where type is one of ci, feat, test, or docs
+
+## Evidence
+
+- Seen in commit: feat(assetlinks): add controlled Play fingerprint updater
+- Seen in commit: test(assetlinks): add root association contract
+- Pattern in commits.prefixes
+
+---
+id: thuyhuongctu.github.io-instinct-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Commit Length
+
+## Action
+
+Keep the commit message concise, around 55 characters on average
+
+## Evidence
+
+- Pattern in commits.averageLength
+
+---
+id: thuyhuongctu.github.io-instinct-github-actions-publish
+trigger: "When publishing Play Asset Links"
+confidence: 0.8
+domain: workflow
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Github Actions Publish
+
+## Action
+
+Use the workflow defined in .github/workflows/publish-bizon-play-assetlinks.yml
+
+## Evidence
+
+- .github/workflows/publish-bizon-play-assetlinks.yml
+
+---
+id: thuyhuongctu.github.io-instinct-github-actions-verify
+trigger: "When verifying Asset Links"
+confidence: 0.8
+domain: workflow
+source: repo-analysis
+source_repo: thuyhuongctu/thuyhuongctu.github.io
+---
+
+# Thuyhuongctu.github.io Instinct Github Actions Verify
+
+## Action
+
+Use the workflow defined in .github/workflows/verify-assetlinks.yml
+
+## Evidence
+
+- .github/workflows/verify-assetlinks.yml
+
