@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "vn.bizon.simulation",
+      "sha256_cert_fingerprints": [
+        "90:1F:4E:09:2B:15:A9:3A:77:F7:A0:A0:AD:9E:5A:1D:5C:06:3B:ED:3A:D7:69:1A:05:13:AE:9D:8B:80:AD:06"
+      ]
+    }
+  }
+]
