@@ -1,0 +1,59 @@
+name: Verify BizOn Asset Links
+
+on:
+  pull_request:
+    paths:
+      - '.well-known/assetlinks.json'
+      - '.github/workflows/verify-assetlinks.yml'
+  push:
+    branches: ['main']
+    paths:
+      - '.well-known/assetlinks.json'
+      - '.github/workflows/verify-assetlinks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Validate repository contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected = '90:1F:4E:09:2B:15:A9:3A:77:F7:A0:A0:AD:9E:5A:1D:5C:06:3B:ED:3A:D7:69:1A:05:13:AE:9D:8B:80:AD:06'
+          data = json.loads(Path('.well-known/assetlinks.json').read_text(encoding='utf-8'))
+          assert len(data) == 1
+          item = data[0]
+          assert item['relation'] == ['delegate_permission/common.handle_all_urls']
+          assert item['target']['namespace'] == 'android_app'
+          assert item['target']['package_name'] == 'vn.bizon.simulation'
+          assert item['target']['sha256_cert_fingerprints'] == [expected]
+          print('Repository assetlinks contract passed')
+          PY
+      - name: Verify deployed root endpoint
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://thuyhuongctu.github.io/.well-known/assetlinks.json'
+          curl --fail --silent --show-error --location \
+            --retry 18 --retry-delay 10 --retry-all-errors \
+            -D /tmp/headers.txt "$URL" -o /tmp/assetlinks.json
+          grep -qE '^HTTP/[^ ]+ 200' /tmp/headers.txt
+          DEPLOYED_URL="$URL" python - <<'PY'
+          import json, os
+          from pathlib import Path
+          expected = '90:1F:4E:09:2B:15:A9:3A:77:F7:A0:A0:AD:9E:5A:1D:5C:06:3B:ED:3A:D7:69:1A:05:13:AE:9D:8B:80:AD:06'
+          data = json.loads(Path('/tmp/assetlinks.json').read_text(encoding='utf-8'))
+          assert data[0]['target']['package_name'] == 'vn.bizon.simulation'
+          assert data[0]['target']['sha256_cert_fingerprints'] == [expected]
+          print('Deployed root Digital Asset Links verified:', os.environ['DEPLOYED_URL'])
+          PY
