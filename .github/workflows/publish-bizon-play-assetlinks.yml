@@ -1,0 +1,96 @@
+name: Publish BizOn Play Asset Links
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_publish:
+        description: Type PUBLISH to update the live host-root Digital Asset Links file
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bizon-play-assetlinks-production
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: google-play-release
+
+    steps:
+      - name: Require explicit publication confirmation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test '${{ inputs.confirm_publish }}' = 'PUBLISH' || {
+            echo 'Publication cancelled: confirm_publish must equal PUBLISH.'
+            exit 1
+          }
+
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Validate current association
+        run: node scripts/validate-bizon-assetlinks.mjs
+
+      - name: Append Play App Signing certificate
+        env:
+          PLAY_APP_SIGNING_SHA256: ${{ secrets.PLAY_APP_SIGNING_SHA256 }}
+        run: node scripts/update-bizon-assetlinks.mjs
+
+      - name: Validate updated association
+        run: node scripts/validate-bizon-assetlinks.mjs
+
+      - name: Require an actual certificate change
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- .well-known/assetlinks.json && {
+            echo 'No change: the supplied certificate is already published.'
+            exit 1
+          }
+
+      - name: Commit root Digital Asset Links
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'BizOn Release'
+          git config user.email 'actions@users.noreply.github.com'
+          git add .well-known/assetlinks.json
+          git commit -m 'release: add BizOn Play signing certificate'
+          git push origin HEAD:main
+
+      - name: Verify live endpoint after GitHub Pages deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://thuyhuongctu.github.io/.well-known/assetlinks.json'
+          EXPECTED=$(node -e "const d=require('./.well-known/assetlinks.json'); console.log(JSON.stringify([...d[0].target.sha256_cert_fingerprints].sort()))")
+          for attempt in {1..30}; do
+            STATUS=$(curl --silent --show-error \
+              --output /tmp/assetlinks.json \
+              --dump-header /tmp/headers.txt \
+              --write-out '%{http_code}' \
+              "$URL" || true)
+            if [ "$STATUS" = '200' ]; then
+              ACTUAL=$(node -e "const d=require('/tmp/assetlinks.json'); console.log(JSON.stringify([...d[0].target.sha256_cert_fingerprints].sort()))" 2>/dev/null || true)
+              if [ "$ACTUAL" = "$EXPECTED" ]; then break; fi
+            fi
+            sleep 10
+          done
+          test "$STATUS" = '200'
+          test "$ACTUAL" = "$EXPECTED"
+          grep -qiE '^content-type:[[:space:]]*application/json' /tmp/headers.txt
+          echo 'Live BizOn Digital Asset Links publication verified.'
