@@ -3,7 +3,10 @@
 Trang gốc của tài khoản — tự chuyển hướng về **[BizOn Bật Nghiệp](https://thuyhuongctu.github.io/BizOn/)**.
 
 - `index.html` — chuyển hướng tức thì về `/BizOn/`.
-- `404.html` — bắt các đường dẫn gõ sai và đưa về đúng trang.
+- `404.html` — nắn lại đường dẫn gõ sai hoa/thường của `/bizon`; mọi đường dẫn
+  lạ khác hiện trang báo lỗi kèm liên kết tới BizOn, EnQuiz và M-AIDA thay vì
+  chuyển hướng. Trước đây trang này đẩy hết mọi lỗi về `/BizOn/`, nên một site
+  con bị hỏng lại trông như là vào nhầm trang game.
 - `.well-known/assetlinks.json` — Digital Asset Links tại root origin cho package Android `vn.bizon.simulation`.
 
 ## Trạng thái Android

@@ -2,16 +2,73 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>BizOn Bật Nghiệp — đang chuyển hướng…</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Không tìm thấy trang — Đỗ Thùy Hương</title>
 <meta name="robots" content="noindex">
 <script>
-// Gõ sai hoa/thường kiểu /bizon/, /Bizon/ → đưa về đúng /BizOn/ kèm phần đường dẫn còn lại
-var p = location.pathname;
-var m = p.match(/^\/bizon(\/.*)?$/i);
-location.replace(m ? '/BizOn' + (m[1] || '/') : '/BizOn/');
+// Chỉ nắn lại đường dẫn gõ sai hoa/thường của BizOn: /bizon/, /Bizon/… → /BizOn/
+// Mọi đường dẫn lạ khác KHÔNG chuyển hướng, mà hiện trang báo lỗi bên dưới.
+// (Trước đây trang này đẩy hết mọi lỗi về /BizOn/, khiến một site hỏng trông
+//  như là "vào nhầm trang game" thay vì báo đúng bệnh.)
+(function () {
+  var m = location.pathname.match(/^\/bizon(\/.*)?$/i);
+  if (m && location.pathname.indexOf('/BizOn') !== 0) {
+    location.replace('/BizOn' + (m[1] || '/'));
+  }
+})();
 </script>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem 1.2rem;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+    background: #f4f7f7;
+    color: #033337;
+    line-height: 1.6;
+  }
+  main { max-width: 34rem; text-align: center; }
+  .code { font-size: 3.4rem; font-weight: 800; letter-spacing: -.03em; margin: 0; opacity: .35; }
+  h1 { font-size: 1.35rem; margin: .2rem 0 .6rem; }
+  p { margin: 0 0 1.4rem; }
+  .en { font-size: .9rem; opacity: .7; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+  a.card {
+    display: block;
+    padding: .75rem 1rem;
+    border: 1px solid rgba(3, 51, 55, .18);
+    border-radius: 12px;
+    background: #fff;
+    color: #033337;
+    text-decoration: none;
+    font-weight: 600;
+    transition: border-color .15s, transform .15s;
+  }
+  a.card:hover { border-color: #0a7d75; transform: translateY(-2px); }
+  a.card small { display: block; font-weight: 400; opacity: .65; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #071a1c; color: #dceceb; }
+    a.card { background: #0d2a2d; color: #dceceb; border-color: rgba(220, 236, 235, .18); }
+  }
+</style>
 </head>
-<body style="font-family:sans-serif;text-align:center;padding-top:20vh;color:#033337">
-<p>Đang chuyển đến <a href="/BizOn/">BizOn Bật Nghiệp</a>…</p>
+<body>
+<main>
+  <p class="code">404</p>
+  <h1>Không tìm thấy trang này</h1>
+  <p>
+    Đường dẫn bạn mở không tồn tại hoặc đã đổi chỗ.<br>
+    <span class="en">This page does not exist or has moved.</span>
+  </p>
+  <ul>
+    <li><a class="card" href="/BizOn/">BizOn Bật Nghiệp <small>Trò chơi mô phỏng khởi nghiệp</small></a></li>
+    <li><a class="card" href="/EnQuiz/">EnQuiz <small>Ôn thi trắc nghiệm Khởi sự doanh nghiệp</small></a></li>
+    <li><a class="card" href="/M-AIDA/">M-AIDA <small>Trang nghiên cứu và giảng dạy</small></a></li>
+  </ul>
+</main>
 </body>
 </html>
