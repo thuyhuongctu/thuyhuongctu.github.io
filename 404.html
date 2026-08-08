@@ -12,9 +12,11 @@
 //  như là "vào nhầm trang game" thay vì báo đúng bệnh.)
 (function () {
   var m = location.pathname.match(/^\/bizon(\/.*)?$/i);
-  if (m && location.pathname.indexOf('/BizOn') !== 0) {
-    location.replace('/BizOn' + (m[1] || '/'));
-  }
+  if (!m) return;                       // đường dẫn không liên quan BizOn: hiện trang 404
+  var target = '/BizOn' + (m[1] || '/');
+  // So với đường dẫn hiện tại để không tự chuyển hướng vòng tròn khi
+  // chính trang con của BizOn mới là trang không tồn tại.
+  if (target !== location.pathname) location.replace(target);
 })();
 </script>
 <style>
