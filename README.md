@@ -1,9 +1,9 @@
 # thuyhuongctu.github.io
 
-Trang gốc của tài khoản — tự chuyển hướng về **[BizOn Bật Nghiệp](https://thuyhuongctu.github.io/BizOn/)**.
+Trang gốc của tài khoản — tự chuyển hướng về **[Je m'appelle Hương](https://thuyhuongctu.github.io/Je-mappelle-Huong/)** (trang học thuật cá nhân).
 
-- `index.html` — chuyển hướng tức thì về `/BizOn/`.
-- `404.html` — bắt các đường dẫn gõ sai và đưa về đúng trang.
+- `index.html` — chuyển hướng tức thì về `/Je-mappelle-Huong/`.
+- `404.html` — bắt các đường dẫn gõ sai: tên cũ `JESUISHUONG_WEBSITE_2026` và biến thể sai hoa/thường về `/Je-mappelle-Huong/`; `/bizon/` sai hoa/thường về `/BizOn/`; còn lại về `/BizOn/`.
 - `.well-known/assetlinks.json` — Digital Asset Links tại root origin cho package Android `vn.bizon.simulation`.
 
 ## Trạng thái Android
