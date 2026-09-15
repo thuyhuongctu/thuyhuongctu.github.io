@@ -5,9 +5,21 @@
     ],
     "target": {
       "namespace": "android_app",
-      "package_name": "vn.bizon.simulation",
+      "package_name": "io.github.thuyhuongctu.bizon",
       "sha256_cert_fingerprints": [
-        "90:1F:4E:09:2B:15:A9:3A:77:F7:A0:A0:AD:9E:5A:1D:5C:06:3B:ED:3A:D7:69:1A:05:13:AE:9D:8B:80:AD:06"
+        "B1:A9:C4:C1:DF:0C:A0:A9:83:4B:F4:26:DC:4A:F2:02:9E:59:91:C5:30:ED:2A:06:0E:A7:80:B1:85:09:7C:42"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.thuyhuongctu.enquiz",
+      "sha256_cert_fingerprints": [
+        "D0:A2:B8:D6:1F:67:96:1A:58:AD:6B:65:7C:4B:BC:0A:BC:1D:7F:DB:08:92:DA:F4:C4:96:14:2D:A8:11:FB:99"
       ]
     }
   }
