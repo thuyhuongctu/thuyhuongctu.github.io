@@ -14,7 +14,14 @@ if (h) {
 } else {
   // Gõ sai hoa/thường kiểu /bizon/, /Bizon/ → đưa về đúng /BizOn/ kèm phần đường dẫn còn lại
   var m = p.match(/^\/bizon(\/.*)?$/i);
-  location.replace(m ? '/BizOn' + (m[1] || '/') : '/BizOn/');
+  if (m) {
+    location.replace('/BizOn' + (m[1] || '/') + location.search + location.hash);
+  } else {
+    // Mọi đường dẫn lạ khác → trang học thuật, đúng như gốc tên miền trong index.html.
+    // Trước đây nhánh này đẩy tất cả về /BizOn/, nên một trang dự án tạm hỏng cũng
+    // khiến khách rơi vào trò chơi kinh doanh thay vì thấy trang 404.
+    location.replace('/Je-mappelle-Huong/');
+  }
 }
 </script>
 </head>
