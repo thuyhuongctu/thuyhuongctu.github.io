@@ -22,5 +22,29 @@
         "D0:A2:B8:D6:1F:67:96:1A:58:AD:6B:65:7C:4B:BC:0A:BC:1D:7F:DB:08:92:DA:F4:C4:96:14:2D:A8:11:FB:99"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.thuyhuongctu.comdraft",
+      "sha256_cert_fingerprints": [
+        "CE:2B:5A:CF:B1:4B:79:1F:E2:6D:37:18:9E:40:5E:A7:BF:41:F2:D2:7F:BD:3F:EB:FC:BD:C2:B9:40:ED:E1:8D"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.thuyhuongctu.gravitylab",
+      "sha256_cert_fingerprints": [
+        "B7:38:E4:B8:C2:D9:59:8C:5B:C8:D2:3A:FD:F5:8C:8E:4D:FF:E9:C0:4C:41:CD:E7:8B:3F:B2:B9:18:4D:69:5E"
+      ]
+    }
   }
 ]
