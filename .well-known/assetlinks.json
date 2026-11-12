@@ -48,5 +48,65 @@
         "B7:38:E4:B8:C2:D9:59:8C:5B:C8:D2:3A:FD:F5:8C:8E:4D:FF:E9:C0:4C:41:CD:E7:8B:3F:B2:B9:18:4D:69:5E"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.thuyhuongctu.suvietgames",
+      "sha256_cert_fingerprints": [
+        "A6:EE:0D:F7:3E:8D:51:6A:D7:8F:5C:64:BF:C9:D2:0F:FC:94:A0:0B:00:15:91:36:8D:A5:57:93:EC:D6:83:5B"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.thuyhuongctu.ledomaine",
+      "sha256_cert_fingerprints": [
+        "7F:CF:83:7C:CA:BA:77:40:6C:53:7D:BF:BF:65:83:D1:5B:1C:8D:25:E8:5C:F4:7C:BD:C8:0C:3A:F9:43:5D:9B"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.thuyhuongctu.lebureau",
+      "sha256_cert_fingerprints": [
+        "7B:1A:4B:84:D4:93:00:69:A3:DA:9C:62:8A:42:44:3B:F5:80:C7:5C:30:58:51:0C:F0:92:B3:19:9D:C6:DA:96"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.thuyhuongctu.aibis",
+      "sha256_cert_fingerprints": [
+        "6C:42:E5:EF:BE:57:F3:FD:C4:F5:80:98:DD:87:A1:1D:88:C1:CF:2C:AA:69:A3:8C:EA:81:2B:F9:F9:88:E5:99"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.thuyhuongctu.vietlens",
+      "sha256_cert_fingerprints": [
+        "15:C2:4A:EC:70:B8:4E:F5:A7:24:55:35:F7:38:04:0F:41:B2:DA:4C:38:5D:E6:28:59:48:93:1B:9E:C1:98:2F"
+      ]
+    }
   }
 ]
