@@ -6,11 +6,18 @@
 <meta name="robots" content="noindex">
 <script>
 var p = location.pathname;
+var q = location.search + location.hash;
+// Cổng Trò Chơi Sử Việt: tên kho cũ ThuyHuong_Digital-2026-Games (đổi 13/11/2026) không còn
+// được GitHub Pages phục vụ; app Su Viet Games bản 1 trên CH Play vẫn mở địa chỉ này.
+// Đưa sang tên miền riêng games.jemappellehuong.com, giữ phần đường dẫn còn lại.
+var g = p.match(/^\/ThuyHuong_Digital-2026-Games(\/.*)?$/i);
 // Trang cá nhân: tên repo cũ JESUISHUONG_WEBSITE_2026 hoặc gõ sai hoa/thường kiểu
-// /je-mappelle-huong/ → đưa về đúng /Je-mappelle-Huong/ kèm phần đường dẫn còn lại
+// /je-mappelle-huong/ → đưa về jemappellehuong.com kèm phần đường dẫn còn lại
 var h = p.match(/^\/(?:JESUISHUONG_WEBSITE_2026|je-mappelle-huong)(\/.*)?$/i);
-if (h) {
-  location.replace('/Je-mappelle-Huong' + (h[1] || '/') + location.search + location.hash);
+if (g) {
+  location.replace('https://games.jemappellehuong.com' + (g[1] || '/') + q);
+} else if (h) {
+  location.replace('https://jemappellehuong.com' + (h[1] || '/') + q);
 } else {
   // Gõ sai hoa/thường kiểu /bizon/, /Bizon/ → đưa về đúng /BizOn/ kèm phần đường dẫn còn lại
   var m = p.match(/^\/bizon(\/.*)?$/i);
@@ -20,12 +27,12 @@ if (h) {
     // Mọi đường dẫn lạ khác → trang học thuật, đúng như gốc tên miền trong index.html.
     // Trước đây nhánh này đẩy tất cả về /BizOn/, nên một trang dự án tạm hỏng cũng
     // khiến khách rơi vào trò chơi kinh doanh thay vì thấy trang 404.
-    location.replace('/Je-mappelle-Huong/');
+    location.replace('https://jemappellehuong.com/');
   }
 }
 </script>
 </head>
 <body style="font-family:sans-serif;text-align:center;padding-top:20vh;color:#033337">
-<p>Đang chuyển đến <a href="/Je-mappelle-Huong/">Je m'appelle Hương</a> hoặc <a href="/BizOn/">BizOn Bật Nghiệp</a>…</p>
+<p>Đang chuyển đến <a href="https://jemappellehuong.com/">Je m'appelle Hương</a> hoặc <a href="https://bizonland.com/">BizOn Bật Nghiệp</a>…</p>
 </body>
 </html>
